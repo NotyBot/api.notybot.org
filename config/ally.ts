@@ -27,7 +27,7 @@ const allyConfig: AllyConfig = {
     driver: 'discord',
     clientId: Env.get('DISCORD_CLIENT_ID'),
     clientSecret: Env.get('DISCORD_CLIENT_SECRET'),
-    callbackUrl: Env.get('DISCORD_CLIENT_CALLBACK'),
+    callbackUrl: Env.get('DISCORD_CLIENT_CALLBACK_URL'),
   },
 }
 
