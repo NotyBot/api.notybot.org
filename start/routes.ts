@@ -23,3 +23,9 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async () => {
   return { hello: 'world' }
 })
+
+Route.group(() => {
+  Route.group(() => {
+    Route.get('/:provider', 'Auth/SocialAuthsController.redirect')
+  }).prefix('oauth')
+}).prefix('/v1')
