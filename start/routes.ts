@@ -27,5 +27,6 @@ Route.get('/', async () => {
 Route.group(() => {
   Route.group(() => {
     Route.get('/:provider', 'Auth/SocialAuthsController.redirect')
+    Route.get('/:provider/callback', 'Auth/SocialAuthsController.callback')
   }).prefix('oauth')
 }).prefix('/v1')
