@@ -40,9 +40,7 @@ export default class SocialAuthsController {
 
       const oat = await auth.use('api').login(user)
 
-      return response
-        .redirect()
-        .toPath(`http://localhost:3000/authentication/oauth?token=${oat.token}`)
+      return response.redirect().toPath(`http://localhost:4200/authentication?token=${oat.token}`)
     } catch (error) {
       console.log(error)
     }
