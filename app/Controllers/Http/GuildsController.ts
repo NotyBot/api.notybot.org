@@ -6,6 +6,7 @@ export default class GuildsController {
     const data = await request.body()
 
     await Guild.create(data)
+
     return response.send('Guild created !')
   }
 }
