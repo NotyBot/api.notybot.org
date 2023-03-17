@@ -30,4 +30,5 @@ Route.group(() => {
     Route.get('/:provider/callback', 'Auth/SocialAuthsController.callback')
   }).prefix('oauth')
   Route.get('/authentication/me', 'UsersController.me').middleware('auth:api')
+  Route.post('/guild', 'GuildsController.store').middleware('auth:api')
 }).prefix('/v1')
