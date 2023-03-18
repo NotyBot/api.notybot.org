@@ -11,10 +11,6 @@ export default class extends BaseSchema {
       table.string('provider')
       table.string('provider_id')
       table.boolean('is_admin').defaultTo(false)
-
-      /**
-       * Uses timestampz for PostgreSQL and DATETIME2 for MSSQL
-       */
       table.timestamp('created_at', { useTz: true }).notNullable()
       table.timestamp('updated_at', { useTz: true }).notNullable()
     })
