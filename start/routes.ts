@@ -31,4 +31,5 @@ Route.group(() => {
   }).prefix('oauth')
   Route.get('/authentication/me', 'UsersController.me').middleware('auth:api')
   Route.post('/guild', 'GuildsController.store').middleware('auth:api')
+  Route.post('newsletter', 'NewsLettersController.store')
 }).prefix('/v1')

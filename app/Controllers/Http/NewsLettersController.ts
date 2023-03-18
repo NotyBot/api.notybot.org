@@ -23,7 +23,7 @@ export default class NewsLettersController {
     return response.send('Email added !')
   }
 
-  public async delete({ params, response }: HttpContextContract) {
+  public async destroy({ params, response }: HttpContextContract) {
     const email = await Email.findBy('email', params.email)
     await email!.delete()
 
