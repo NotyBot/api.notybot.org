@@ -23,3 +23,14 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async () => {
   return { hello: 'world' }
 })
+
+Route.group(() => {
+  Route.group(() => {
+    Route.get('/:provider', 'Auth/SocialAuthsController.redirect')
+    Route.get('/:provider/callback', 'Auth/SocialAuthsController.callback')
+  }).prefix('oauth')
+  Route.get('/authentication/me', 'UsersController.me').middleware('auth:api')
+  Route.post('/guild', 'GuildsController.store').middleware('auth:api')
+  Route.post('/newsletter', 'NewsLettersController.store')
+  Route.delete('/newsletter/:email', 'NewsLettersController.destroy').as('newsletter.delete')
+}).prefix('/v1')

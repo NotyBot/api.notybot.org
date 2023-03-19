@@ -1,0 +1,21 @@
+version: '3'
+services:
+  database:
+    image: postgres:14
+    volumes:
+      - psql-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: notybot
+      POSTGRES_PASSWORD: notybot
+      POSTGRES_DB: notybot
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis:7
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+volumes:
+  psql-data:
+  redis-data:
