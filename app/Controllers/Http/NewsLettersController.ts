@@ -5,10 +5,11 @@ import Mail from '@ioc:Adonis/Addons/Mail'
 
 export default class NewsLettersController {
   public async store({ request, response }: HttpContextContract) {
-    const newEmailSchema = schema.create({
-      email: schema.string(),
+    const data = await request.validate({
+      schema: schema.create({
+        email: schema.string(),
+      }),
     })
-    const data = await request.validate({ schema: newEmailSchema })
 
     await Email.create(data)
 
@@ -20,13 +21,13 @@ export default class NewsLettersController {
         .htmlView('emails/welcome', { email: data.email })
     })
 
-    return response.send('Email added !')
+    return response.send('Email send !')
   }
 
   public async destroy({ params, response }: HttpContextContract) {
     const email = await Email.findBy('email', params.email)
     await email!.delete()
 
-    return response.send('Email deleted !')
+    return response.redirect().toPath('https://notybot.org/newsletter/succes')
   }
 }
