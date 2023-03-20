@@ -5,7 +5,6 @@ import Guild from 'App/Models/Guild'
 export default class GuildsController {
   public async store({ request, response }: HttpContextContract) {
     const data = await request.validate(GuildValidator)
-    console.log(data)
 
     await Guild.updateOrCreate(
       {
@@ -17,5 +16,11 @@ export default class GuildsController {
     )
 
     return response.send('Guild created !')
+  }
+
+  public async destroy({ params, response }: HttpContextContract) {
+    const guild = await Guild.findBy('id', params.id)
+    await guild!.delete()
+    return response.send('Guild deleted')
   }
 }
