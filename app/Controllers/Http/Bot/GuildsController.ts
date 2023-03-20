@@ -3,7 +3,12 @@ import GuildValidator from 'App/Validators/GuildValidator'
 import Guild from 'App/Models/Guild'
 
 export default class GuildsController {
+  public async index({}: HttpContextContract) {
+    const data = await Guild.query().where('id', '1061557112783781898').first()
+    console.log(data)
+  }
   public async store({ request, response }: HttpContextContract) {
+    console.log(await request.body())
     const data = await request.validate(GuildValidator)
 
     await Guild.updateOrCreate(
@@ -11,7 +16,9 @@ export default class GuildsController {
         id: data.id,
       },
       {
-        ...data,
+        id: data.id,
+        name: data.name,
+        channels: data.channels,
       }
     )
 
