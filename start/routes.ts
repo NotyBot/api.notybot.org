@@ -34,7 +34,7 @@ Route.group(() => {
 
   //GESTION DU BOT
   Route.group(() => {
-    Route.post('/guild', 'GuildsController.store')
+    Route.post('/guild', 'Bot/GuildsController.store')
   })
     .prefix('/bot')
     .middleware('rest')
