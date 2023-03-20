@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import GuildChannel from 'App/Models/GuildChannel'
 
 export default class Guild extends BaseModel {
   @column({ isPrimary: true })
@@ -13,4 +14,7 @@ export default class Guild extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @hasOne(() => GuildChannel)
+  public channels: HasOne<typeof GuildChannel>
 }

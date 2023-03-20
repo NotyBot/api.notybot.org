@@ -34,8 +34,13 @@ Route.group(() => {
 
   //GESTION DU BOT
   Route.group(() => {
-    Route.post('/guild', 'Bot/GuildsController.store')
-    Route.delete('/guild', 'Bot/GuildsController.destroy')
+    Route.group(() => {
+      Route.post('/', 'Bot/GuildsController.store')
+      Route.delete('/', 'Bot/GuildsController.destroy')
+      Route.group(() => {
+        Route.post('/', 'Bot/GuildChannelsController.store')
+      }).prefix('/channels')
+    }).prefix('/guild')
   })
     .prefix('/bot')
     .middleware('rest')
