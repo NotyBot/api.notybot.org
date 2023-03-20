@@ -25,12 +25,23 @@ Route.get('/', async () => {
 })
 
 Route.group(() => {
+  //AUTHENTICATION
   Route.group(() => {
     Route.get('/:provider', 'Auth/SocialAuthsController.redirect')
     Route.get('/:provider/callback', 'Auth/SocialAuthsController.callback')
+    Route.get('/me', 'UsersController.me').middleware('auth:api')
   }).prefix('oauth')
-  Route.get('/authentication/me', 'UsersController.me').middleware('auth:api')
-  Route.post('/guild', 'GuildsController.store').middleware('auth:api')
-  Route.post('/newsletter', 'NewsLettersController.store')
-  Route.delete('/newsletter/:email', 'NewsLettersController.destroy').as('newsletter.delete')
+
+  //GESTION DU BOT
+  Route.group(() => {
+    Route.post('/guild', 'GuildsController.store')
+  })
+    .prefix('/bot')
+    .middleware('rest')
+
+  //NEWSLETTER
+  Route.group(() => {
+    Route.post('/newsletter', 'NewsLettersController.store')
+    Route.delete('/newsletter/:email', 'NewsLettersController.destroy').as('newsletter.delete')
+  }).prefix('/newsletter')
 }).prefix('/v1')
