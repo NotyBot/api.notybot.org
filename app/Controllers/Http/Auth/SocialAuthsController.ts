@@ -29,9 +29,10 @@ export default class SocialAuthsController {
 
       const user = await User.firstOrCreate(
         {
-          email: providerUser.email!,
+          id: providerUser.id,
         },
         {
+          id: providerUser.id,
           username: providerUser.name,
           provider: params.provider,
           providerId: providerUser.id,
