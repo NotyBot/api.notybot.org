@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
+import SocialAuth from 'App/Services/SocialAuth'
 
 export default class SocialAuthsController {
   public async redirect({ ally, auth, params, response }: HttpContextContract) {
@@ -9,41 +10,17 @@ export default class SocialAuthsController {
     return ally.use(params.provider).redirect()
   }
 
-  public async callback({ ally, response, params, auth }: HttpContextContract) {
-    try {
-      const provider = ally.use(params.provider)
+  public async callback({ ally, auth, params, response }: HttpContextContract) {
+    const socialUser = await ally.use(params.provider).user()
 
-      if (provider.accessDenied()) {
-        return response.send('Access was denied')
-      }
-
-      if (provider.stateMisMatch()) {
-        return 'Request expired. Retry again'
-      }
-
-      if (provider.hasError()) {
-        return provider.getError()
-      }
-
-      const providerUser = await provider.user()
-
-      const user = await User.firstOrCreate(
-        {
-          id: providerUser.id,
-        },
-        {
-          id: providerUser.id,
-          username: providerUser.name,
-          provider: params.provider,
-          providerId: providerUser.id,
-        }
-      )
-
+    // @ts-ignore
+    await new SocialAuth(socialUser, params.provider).onFindOrCreate(async (user: User) => {
       const oat = await auth.use('api').login(user)
-
       return response.redirect().toPath(`http://localhost:4200/authentication?token=${oat.token}`)
-    } catch (error) {
-      console.log(error)
-    }
+    })
+  }
+
+  public async logout({ auth }: HttpContextContract) {
+    return await auth.logout()
   }
 }
