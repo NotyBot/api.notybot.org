@@ -6,7 +6,6 @@ export type WelcomeData = WelcomeValidator['schema']['props']
 export default class WelcomeValidator {
   constructor(protected ctx: HttpContextContract) {}
   public schema = schema.create({
-    guild_id: schema.string(),
     channel_id: schema.string(),
     message: schema.string.nullable(),
     canvas: schema.string.nullable(),
