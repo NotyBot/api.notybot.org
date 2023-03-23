@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import GuildValidator from 'App/Validators/GuildValidator'
 import Guild from 'App/Models/Guild'
 import Welcome from 'App/Models/Welcome'
+import { DefaultWelcomeValue } from '../../../../constants/Guild'
 
 export default class GuildsController {
   public async store({ request, response }: HttpContextContract) {
@@ -20,22 +21,7 @@ export default class GuildsController {
 
     const welcome = await Welcome.findBy('guild_id', guild.id)
     if (!welcome) {
-      guild.related('welcome').create({
-        channel_id: '456789456875446',
-        message: 'test',
-        canvas: '',
-        embed: {
-          title: null,
-          description: 'test',
-          color: '#fff',
-          fields: null,
-          footer: null,
-        },
-        role: '',
-        sendPrivateMessage: false,
-        giveRole: false,
-        enabled: false,
-      })
+      guild.related('welcome').create(DefaultWelcomeValue)
     }
 
     return response.send('Guild created !')

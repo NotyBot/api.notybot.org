@@ -13,7 +13,7 @@ export default class Welcome extends BaseModel {
   public updatedAt: DateTime
 
   @column()
-  public guildId: string
+  public guild_id: string
 
   @column()
   public channel_id: string
@@ -25,16 +25,16 @@ export default class Welcome extends BaseModel {
   public canvas: string | null
 
   @column()
-  public embed: WelcomeData['embed'] | null
+  public embed: WelcomeData['embed']
 
   @column()
   public role: string | null
 
   @column()
-  public sendPrivateMessage: boolean
+  public send_private_message: boolean
 
   @column()
-  public giveRole: boolean
+  public give_role: boolean
 
   @column()
   public enabled: boolean

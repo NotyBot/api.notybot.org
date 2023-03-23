@@ -11,7 +11,7 @@ export const EmbedFooterType = schema.object.nullable().members({
   iconUrl: schema.string.nullable(),
 })
 
-export const EmbedSchema = schema.object.optional().members({
+export const EmbedSchema = schema.object.nullable().members({
   title: schema.string.nullable(),
   description: schema.string(),
   color: schema.string(),
