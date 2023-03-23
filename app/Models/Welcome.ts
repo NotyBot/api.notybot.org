@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { WelcomeData } from 'App/Validators/WelcomeValidator'
 
 export default class Welcome extends BaseModel {
   @column({ isPrimary: true })
@@ -21,13 +22,13 @@ export default class Welcome extends BaseModel {
   public message: string
 
   @column()
-  public canvas: string
+  public canvas: string | null
 
   @column()
-  public embed: string
+  public embed: WelcomeData['embed'] | null
 
   @column()
-  public role: string
+  public role: string | null
 
   @column()
   public sendPrivateMessage: boolean
