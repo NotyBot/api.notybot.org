@@ -13,6 +13,7 @@ export default class WelcomeValidator {
     role: schema.string.nullable(),
     send_private_message: schema.boolean(),
     give_role: schema.boolean(),
+    send_embed: schema.boolean(),
     enabled: schema.boolean(),
   })
   public messages: CustomMessages = {}

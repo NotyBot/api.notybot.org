@@ -16,6 +16,7 @@ export default class extends BaseSchema {
       table.string('role').nullable()
       table.boolean('send_private_message').defaultTo(false)
       table.boolean('give_role').defaultTo(false)
+      table.boolean('send_embed').defaultTo(false)
       table.boolean('enabled').defaultTo(false)
     })
   }

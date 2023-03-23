@@ -37,5 +37,8 @@ export default class Welcome extends BaseModel {
   public give_role: boolean
 
   @column()
+  public send_embed: boolean
+
+  @column()
   public enabled: boolean
 }
