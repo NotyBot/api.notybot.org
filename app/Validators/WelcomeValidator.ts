@@ -7,7 +7,7 @@ export default class WelcomeValidator {
   constructor(protected ctx: HttpContextContract) {}
   public schema = schema.create({
     channel_id: schema.string(),
-    message: schema.string.nullable(),
+    message: schema.string(),
     canvas: schema.string.nullable(),
     embed: EmbedSchema,
     role: schema.string.nullable(),
