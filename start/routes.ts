@@ -41,6 +41,7 @@ Route.group(() => {
     }).prefix('/guild')
     Route.group(() => {
       Route.get('/:guildId', 'Bot/WelcomesController.show')
+      Route.put(':guild_id', 'Bot/WelcomesController.update').middleware('auth:api')
     }).prefix('/welcome')
   })
     .prefix('/bot')
