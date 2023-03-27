@@ -16,6 +16,13 @@ services:
       - redis-data:/data
     ports:
       - "6379:6379"
+  redis-queue:
+    image: redis:7
+    volumes:
+      - redis-queue-data:/data
+    ports:
+      - "6380:6379"
 volumes:
   psql-data:
   redis-data:
+  redis-queue-data:
