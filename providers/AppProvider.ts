@@ -12,6 +12,7 @@ export default class AppProvider {
   }
 
   public async ready() {
+    await import('../start/socket')
     // App is ready
   }
 
