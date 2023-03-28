@@ -39,10 +39,6 @@ Route.group(() => {
       Route.post('/', 'Bot/GuildsController.store')
       Route.delete('/', 'Bot/GuildsController.destroy')
     }).prefix('/guild')
-    Route.group(() => {
-      Route.get('/:guildId', 'Bot/WelcomesController.show')
-      Route.put(':guild_id', 'Bot/WelcomesController.update').middleware('auth:api')
-    }).prefix('/welcome')
   })
     .prefix('/bot')
     .middleware('rest')
