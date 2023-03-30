@@ -1,3 +1,4 @@
-import WebSocket from 'App/Services/WebSocket'
+import { SocketServer } from 'App/Services/SocketServer'
 
-WebSocket.boot()
+const socketServer = new SocketServer()
+socketServer.init()
