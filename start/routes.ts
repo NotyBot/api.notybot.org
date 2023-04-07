@@ -24,6 +24,8 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
+Route.get('/test', 'UsersController.test')
+
 Route.group(() => {
   //AUTHENTICATION
   Route.group(() => {

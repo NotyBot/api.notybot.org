@@ -1,6 +1,7 @@
 import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
-import SocketService from 'App/Services/SocketService'
+import { inject } from '@adonisjs/fold'
 
+@inject()
 export default class AppProvider {
   constructor(protected app: ApplicationContract) {}
 
@@ -8,11 +9,7 @@ export default class AppProvider {
 
   public async boot() {}
 
-  public async ready() {
-    new SocketService()
-  }
+  public async ready() {}
 
-  public async shutdown() {
-    // Cleanup, since app is going down
-  }
+  public async shutdown() {}
 }
