@@ -22,4 +22,6 @@ Route.group(() => {
     Route.post('/newsletter', 'NewsLettersController.store')
     Route.delete('/newsletter/:email', 'NewsLettersController.destroy').as('newsletter.delete')
   }).prefix('/newsletter')
+
+  Route.post('/api-credentials', 'ApiCredentialsController.store')
 }).prefix('/v1')

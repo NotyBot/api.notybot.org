@@ -7,7 +7,7 @@ import ApiCredential from 'App/Models/ApiCredential'
 export default class ConnectsController {
   public async store({ request, response }: HttpContextContract) {
     const data = await request.validate(ConnectValidator)
-    const apiCredential = await ApiCredential.findOrFail(data.api_key)
+    const apiCredential = await ApiCredential.findBy('api_key', data.api_key)
 
     if (!apiCredential) {
       return response.status(401).json({ message: 'Unauthorized' })
