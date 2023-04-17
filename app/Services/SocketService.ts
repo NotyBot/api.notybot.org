@@ -1,14 +1,16 @@
 import { Socket, Server } from 'node:net'
 import Logger from '@ioc:Adonis/Core/Logger'
+import { HelloPayload } from '../../types'
 
 interface ClientHeartbeat {
   client: Socket
-  intervalId: NodeJS.Timeout
+  exec: () => void
 }
-
 export default class SocketService {
   public server: Server
   private clients: Map<string, ClientHeartbeat> = new Map()
+
+  private HEARTBEAT_TIMEOUT = 5000
 
   constructor() {
     this.server = new Server()
@@ -19,40 +21,54 @@ export default class SocketService {
   }
 
   private handleConnection(client: Socket) {
-    console.log('new client connected')
-
+    let heartbeatTimer: NodeJS.Timeout
     this.clients.set(client.remoteAddress!, {
       client,
-      intervalId: setInterval(() => {
-        const event = {
-          code: 0,
-          data: { foo: 'bar' },
-        }
-        client.write(JSON.stringify(event))
-      }, Math.floor(Math.random() * 10000) + 1000),
+      exec: () => {
+        client.write(JSON.stringify(HelloPayload))
+      },
     })
 
     client.on('data', (data) => {
-      console.log('data', data.toString())
-      // if (data.toString() === 'PING') {
-      //   console.log('Received PING from client')
-      // } else {
-      //   console.log('Received data from client: ', data.toString())
-      // }
-    })
-
-    client.on('end', () => {
-      console.log('client disconnected')
-      const clientHeartbeat = this.clients.get(client.remoteAddress!)
-      if (clientHeartbeat) {
-        clearInterval(clientHeartbeat.intervalId)
-        this.clients.delete(client.remoteAddress!)
+      try {
+        const payload = JSON.parse(data.toString().trim())
+        switch (payload.code) {
+          case 0:
+            Logger.info('Client authenticated')
+            break
+          case 1:
+            Logger.info('Client heartbeat')
+            clearTimeout(heartbeatTimer)
+            heartbeatTimer = setTimeout(() => {
+              console.log('Client heartbeat timeout')
+              client.end()
+            }, this.HEARTBEAT_TIMEOUT)
+            break
+        }
+      } catch (error) {
+        console.log(`Error parsing JSON: ${error}`)
       }
     })
 
-    client.on('error', (err) => {
-      console.log('client error', err)
-      client.end()
+    client.on('close', () => {
+      this.clients.delete(client.remoteAddress!)
     })
+
+    client.on('error', (error) => {
+      console.log(`Client error: ${error}`)
+
+      this.clients.delete(client.remoteAddress!)
+    })
+
+    client.on('end', () => {
+      console.log('Client disconnected')
+      clearTimeout(heartbeatTimer)
+      this.clients.delete(client.remoteAddress!)
+    })
+
+    heartbeatTimer = setTimeout(() => {
+      console.log('Client heartbeat timeout')
+      client.end()
+    }, this.HEARTBEAT_TIMEOUT)
   }
 }
