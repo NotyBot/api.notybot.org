@@ -20,22 +20,23 @@ export default class SocketService {
   }
 
   private handleConnection(client: Socket) {
+    Logger.info(`Client connected: ${client.remoteAddress}`)
+
     let heartbeatTimer: NodeJS.Timeout
     this.clients.set(client.remoteAddress!, {
       client,
     })
 
     client.on('data', (data) => {
-      console.log(data.toString().trim())
       try {
         const payload = JSON.parse(data.toString().trim())
         switch (payload.code) {
           case 0:
-            Logger.info('Client authenticated')
+            console.log('Client authenticated')
             client.write(JSON.stringify(HelloPayload))
             break
           case 1:
-            Logger.info('Client heartbeat')
+            console.log('Client heartbeat')
             clearTimeout(heartbeatTimer)
             heartbeatTimer = setTimeout(() => {
               console.log('Client heartbeat timeout')
