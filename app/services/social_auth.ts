@@ -1,5 +1,5 @@
-import { AllyUserContract, SocialProviders, DiscordToken } from '@ioc:Adonis/Addons/Ally'
-import User from 'App/Models/User'
+import { AllyUserContract, DiscordToken, SocialProviders } from '@ioc:Adonis/Addons/Ally'
+import User from 'app/models/User'
 
 export default class SocialAuth implements Promise<void> {
   private findOrCreateHandler: any
@@ -8,6 +8,13 @@ export default class SocialAuth implements Promise<void> {
     private socialUser: AllyUserContract<DiscordToken>,
     private provider: keyof SocialProviders
   ) {}
+
+  /**
+   * Required when Promises are extended
+   */
+  public get [Symbol.toStringTag]() {
+    return this.constructor.name
+  }
 
   public onFindOrCreate(cb: any) {
     this.findOrCreateHandler = cb
@@ -18,21 +25,6 @@ export default class SocialAuth implements Promise<void> {
     let user = await this.updateOrCreate()
 
     await this.findOrCreateHandler(user)
-  }
-
-  private updateOrCreate() {
-    return User.firstOrCreate(
-      {
-        id: this.socialUser.id,
-      },
-      {
-        id: this.socialUser.id,
-        username:
-          this.socialUser.nickName ?? this.socialUser.name ?? this.socialUser.email!.split('@')[0],
-        provider: this.provider,
-        providerId: this.socialUser.id,
-      }
-    )
   }
 
   /**
@@ -56,10 +48,18 @@ export default class SocialAuth implements Promise<void> {
     return this.exec().finally(fullfilled)
   }
 
-  /**
-   * Required when Promises are extended
-   */
-  public get [Symbol.toStringTag]() {
-    return this.constructor.name
+  private updateOrCreate() {
+    return User.firstOrCreate(
+      {
+        id: this.socialUser.id,
+      },
+      {
+        id: this.socialUser.id,
+        username:
+          this.socialUser.nickName ?? this.socialUser.name ?? this.socialUser.email!.split('@')[0],
+        provider: this.provider,
+        providerId: this.socialUser.id,
+      }
+    )
   }
 }

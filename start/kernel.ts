@@ -31,7 +31,7 @@ Server.middleware.register([() => import('@ioc:Adonis/Core/BodyParser')])
 | or middleware function and key is the alias. Later you can use these
 | alias on individual routes. For example:
 |
-| { auth: () => import('App/Middleware/Auth') }
+| { auth: () => import('App/middleware/Auth') }
 |
 | and then use it as follows
 |
@@ -39,6 +39,5 @@ Server.middleware.register([() => import('@ioc:Adonis/Core/BodyParser')])
 |
 */
 Server.middleware.registerNamed({
-  auth: () => import('App/Middleware/Auth'),
-  rest: () => import('App/Middleware/Rest'),
+  auth: () => import('app/middleware/auth'),
 })

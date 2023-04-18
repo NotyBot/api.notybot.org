@@ -7,21 +7,21 @@ Route.get('/', async () => {
 Route.group(() => {
   //AUTHENTICATION
   Route.group(() => {
-    Route.get('/:provider', 'Auth/SocialAuthsController.redirect')
-    Route.get('/:provider/callback', 'Auth/SocialAuthsController.callback')
-    Route.get('/me', 'UsersController.me').middleware('auth:api')
+    Route.get('/:provider', 'auth/social_auths_controller.redirect')
+    Route.get('/:provider/callback', 'auth/social_auths_controller.callback')
+    Route.get('/me', 'users_controller.me').middleware('auth:api')
   }).prefix('oauth')
 
   //GESTION DU BOT
   Route.group(() => {
-    Route.post('/', 'Bot/ConnectsController.store')
+    Route.post('/', 'bot/connects_controller.store')
   }).prefix('/bot')
 
   //NEWSLETTER
   Route.group(() => {
-    Route.post('/newsletter', 'NewsLettersController.store')
-    Route.delete('/newsletter/:email', 'NewsLettersController.destroy').as('newsletter.delete')
+    Route.post('/newsletter', 'news_letters_controller.store')
+    Route.delete('/newsletter/:email', 'news_letters_controller.destroy').as('newsletter.delete')
   }).prefix('/newsletter')
 
-  Route.post('/api-credentials', 'ApiCredentialsController.store')
+  Route.post('/api-credentials', 'api_credentials_controller.store')
 }).prefix('/v1')

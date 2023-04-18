@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema } from '@ioc:Adonis/Core/Validator'
-import Email from 'App/Models/Email'
+import Email from 'app/models/Email'
 import Mail from '@ioc:Adonis/Addons/Mail'
 
 export default class NewsLettersController {

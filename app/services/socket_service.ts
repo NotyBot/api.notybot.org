@@ -1,10 +1,11 @@
-import { Socket, Server } from 'node:net'
+import { Server, Socket } from 'node:net'
 import Logger from '@ioc:Adonis/Core/Logger'
 import { HelloPayload } from '../../types'
 
 interface ClientHeartbeat {
   client: Socket
 }
+
 export default class SocketService {
   public server: Server
   private clients: Map<string, ClientHeartbeat> = new Map()

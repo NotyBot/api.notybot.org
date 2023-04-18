@@ -8,19 +8,19 @@
     "@adonisjs/mail/build/commands",
     "@setten/bull-queue/build/commands"
   ],
-  "exceptionHandlerNamespace": "App/Exceptions/Handler",
+  "exceptionHandlerNamespace": "app/exceptions/handler",
   "aliases": {
-    "App": "app",
-    "Config": "config",
-    "Database": "database",
-    "Contracts": "contracts"
+    "app": "app",
+    "config": "config",
+    "database": "database",
+    "contracts": "contracts"
   },
   "preloads": [
     "./start/routes",
     "./start/kernel"
   ],
   "providers": [
-    "./providers/AppProvider",
+    "./providers/app_provider",
     "@adonisjs/core",
     "@adonisjs/lucid",
     "@adonisjs/auth",
@@ -52,5 +52,8 @@
       "pattern": "resources/views/**/*.edge",
       "reloadServer": false
     }
-  ]
+  ],
+  "namespaces": {
+    "controllers": "app/controllers/http"
+  }
 }

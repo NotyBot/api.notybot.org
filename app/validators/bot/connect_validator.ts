@@ -1,9 +1,7 @@
-import { schema, CustomMessages } from '@ioc:Adonis/Core/Validator'
+import { CustomMessages, schema } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class ConnectValidator {
-  constructor(protected ctx: HttpContextContract) {}
-
   /*
    * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
    *
@@ -27,7 +25,6 @@ export default class ConnectValidator {
     api_key: schema.string(),
     api_secret: schema.string(),
   })
-
   /**
    * Custom messages for validation failures. You can make use of dot notation `(.)`
    * for targeting nested fields and array expressions `(*)` for targeting all
@@ -40,4 +37,6 @@ export default class ConnectValidator {
    *
    */
   public messages: CustomMessages = {}
+
+  constructor(protected ctx: HttpContextContract) {}
 }

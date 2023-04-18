@@ -1,5 +1,5 @@
-import ApiCredential from 'App/Models/ApiCredential'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import ApiCredential from 'app/models/api_credential'
 
 export default class ApiCredentialsController {
   public async store({}: HttpContextContract) {

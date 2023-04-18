@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, beforeCreate } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, beforeCreate, column } from '@ioc:Adonis/Lucid/Orm'
 import { randomUUID } from 'crypto'
 
 export default class ApiCredential extends BaseModel {

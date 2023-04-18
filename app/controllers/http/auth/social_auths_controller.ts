@@ -1,6 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import User from 'App/Models/User'
-import SocialAuth from 'App/Services/SocialAuth'
+import User from 'app/models/User'
+import SocialAuth from 'app/services/social_auth'
 
 export default class SocialAuthsController {
   public async redirect({ ally, auth, params, response }: HttpContextContract) {

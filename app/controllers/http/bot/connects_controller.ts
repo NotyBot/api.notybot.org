@@ -1,12 +1,10 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import ConnectValidator from 'App/Validators/Bot/ConnectValidator'
-import ApiCredential from 'App/Models/ApiCredential'
+import Connect_validator from 'app/validators/bot/connect_validator'
+import ApiCredential from 'app/models/api_credential'
 
 export default class ConnectsController {
   public async store({ request, response }: HttpContextContract) {
-    const data = await request.validate(ConnectValidator)
+    const data = await request.validate(Connect_validator)
     const apiCredential = await ApiCredential.findBy('api_key', data.api_key)
 
     if (!apiCredential) {

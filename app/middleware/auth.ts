@@ -16,6 +16,23 @@ export default class AuthMiddleware {
   protected redirectTo = '/login'
 
   /**
+   * Handle request
+   */
+  public async handle(
+    { auth }: HttpContextContract,
+    next: () => Promise<void>,
+    customGuards: (keyof GuardsList)[]
+  ) {
+    /**
+     * Uses the user defined guards or the default guard mentioned in
+     * the config file
+     */
+    const guards = customGuards.length ? customGuards : [auth.name]
+    await this.authenticate(auth, guards)
+    await next()
+  }
+
+  /**
    * Authenticates the current HTTP request against a custom set of defined
    * guards.
    *
@@ -55,22 +72,5 @@ export default class AuthMiddleware {
       guardLastAttempted,
       this.redirectTo
     )
-  }
-
-  /**
-   * Handle request
-   */
-  public async handle(
-    { auth }: HttpContextContract,
-    next: () => Promise<void>,
-    customGuards: (keyof GuardsList)[]
-  ) {
-    /**
-     * Uses the user defined guards or the default guard mentioned in
-     * the config file
-     */
-    const guards = customGuards.length ? customGuards : [auth.name]
-    await this.authenticate(auth, guards)
-    await next()
   }
 }
