@@ -4,7 +4,6 @@ import { HelloPayload } from '../../types'
 
 interface ClientHeartbeat {
   client: Socket
-  exec: () => void
 }
 export default class SocketService {
   public server: Server
@@ -24,17 +23,16 @@ export default class SocketService {
     let heartbeatTimer: NodeJS.Timeout
     this.clients.set(client.remoteAddress!, {
       client,
-      exec: () => {
-        client.write(JSON.stringify(HelloPayload))
-      },
     })
 
     client.on('data', (data) => {
+      console.log(data.toString().trim())
       try {
         const payload = JSON.parse(data.toString().trim())
         switch (payload.code) {
           case 0:
             Logger.info('Client authenticated')
+            client.write(JSON.stringify(HelloPayload))
             break
           case 1:
             Logger.info('Client heartbeat')
