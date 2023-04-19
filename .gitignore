@@ -6,3 +6,6 @@ coverage
 .env
 tmp
 .idea
+docker-compose.yaml
+yarn.lock
+.env.test
