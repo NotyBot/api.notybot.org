@@ -4,6 +4,10 @@ import Email from 'App/Models/Email'
 import Mail from '@ioc:Adonis/Addons/Mail'
 
 export default class NewsLettersController {
+  private from = 'noreply@notybot.org'
+  private subject = 'Sign Up for NotyBot Alpha'
+  private teamplate = 'emails/welcome'
+
   public async store({ request, response }: HttpContextContract) {
     const data = await request.validate({
       schema: schema.create({
@@ -15,10 +19,10 @@ export default class NewsLettersController {
 
     await Mail.send((message) => {
       message
-        .from('noreply@notybot.org')
+        .from(this.from)
         .to(data.email)
-        .subject('Sign Up for NotyBot Alpha')
-        .htmlView('emails/welcome', { email: data.email })
+        .subject(this.subject)
+        .htmlView(this.teamplate, { email: data.email })
     })
 
     return response.send('Email send !')

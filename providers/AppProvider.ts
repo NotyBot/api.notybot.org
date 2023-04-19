@@ -1,22 +1,17 @@
 import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
+import SocketService from 'App/Services/SocketService'
 
 export default class AppProvider {
   constructor(protected app: ApplicationContract) {}
 
-  public register() {
-    // Register your own bindings
-  }
+  public register() {}
 
   public async boot() {
-    // IoC container is ready
+    // @ts-ignore
+    this.app.container.use('App/Services/SocketService', new SocketService())
   }
 
-  public async ready() {
-    await import('../start/socket')
-    // App is ready
-  }
+  public async ready() {}
 
-  public async shutdown() {
-    // Cleanup, since app is going down
-  }
+  public async shutdown() {}
 }
