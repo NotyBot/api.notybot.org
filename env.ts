@@ -31,9 +31,13 @@ export default Env.rules({
   DISCORD_CLIENT_CALLBACK_URL: Env.schema.string(),
   SMTP_HOST: Env.schema.string({ format: 'host' }),
   SMTP_PORT: Env.schema.number(),
+  SMTP_USERNAME: Env.schema.string.optional(),
+  SMTP_PASSWORD: Env.schema.string.optional(),
   REDIS_CONNECTION: Env.schema.enum(['local'] as const),
   REDIS_HOST: Env.schema.string({ format: 'host' }),
   REDIS_PORT: Env.schema.number(),
+  REDIS_PASSWORD: Env.schema.string.optional(),
   QUEUE_REDIS_HOST: Env.schema.string({ format: 'host' }),
   QUEUE_REDIS_PORT: Env.schema.number(),
+  QUEUE_REDIS_PASSWORD: Env.schema.string.optional(),
 })
