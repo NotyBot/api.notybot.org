@@ -1,6 +1,4 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import ConnectValidator from 'App/Validators/Bot/ConnectValidator'
 import ApiCredential from 'App/Models/ApiCredential'
 
