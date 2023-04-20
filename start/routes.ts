@@ -15,6 +15,7 @@ Route.group(() => {
   //GESTION DU BOT
   Route.group(() => {
     Route.post('/', 'Bot/ConnectsController.store')
+    Route.put('/', 'Bot/ConnectsController.update')
   }).prefix('/bot')
 
   //NEWSLETTER
