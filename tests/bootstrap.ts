@@ -23,7 +23,7 @@ import { assert, runFailedTests, specReporter, apiClient } from '@japa/preset-ad
 export const plugins: Required<Config>['plugins'] = [
   assert(),
   runFailedTests(),
-  apiClient('http://localhost:3333/'),
+  apiClient('http://127.0.0.1:3000'),
 ]
 
 /*
@@ -51,7 +51,11 @@ export const reporters: Required<Config>['reporters'] = [specReporter()]
 |
 */
 export const runnerHooks: Pick<Required<Config>, 'setup' | 'teardown'> = {
-  setup: [() => TestUtils.ace().loadCommands()],
+  setup: [
+    () => TestUtils.ace().loadCommands(),
+    () => TestUtils.db().migrate(),
+    () => TestUtils.db().seed(),
+  ],
   teardown: [],
 }
 
