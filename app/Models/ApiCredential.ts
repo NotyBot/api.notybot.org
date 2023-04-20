@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, beforeCreate } from '@ioc:Adonis/Lucid/Orm'
-import { randomUUID } from 'crypto'
+import * as crypto from 'crypto'
 
 export default class ApiCredential extends BaseModel {
   @column({ isPrimary: true })
@@ -23,8 +23,7 @@ export default class ApiCredential extends BaseModel {
 
   @beforeCreate()
   public static async generateApiKey(apiCredential: ApiCredential) {
-    apiCredential.apiKey = randomUUID()
-    apiCredential.apiSecret =
-      Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+    apiCredential.apiKey = crypto.randomBytes(16).toString('hex')
+    apiCredential.apiSecret = crypto.randomBytes(32).toString('hex')
   }
 }
