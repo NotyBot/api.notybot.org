@@ -13,14 +13,14 @@ export default class ConnectsController {
       return response.status(401).json({ message: 'Unauthorized' })
     }
 
-    if (apiCredential.apiSecret !== data.api_secret) {
+    if (apiCredential.api_secret !== data.api_secret) {
       return response.status(401).json({ message: 'Unauthorized' })
     }
 
-    apiCredential.bearerToken =
+    apiCredential.bearer_token =
       Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
     await apiCredential.save()
 
-    return response.status(200).json({ bearer_token: apiCredential.bearerToken })
+    return response.status(200).json({ bearer_token: apiCredential.bearer_token })
   }
 }
