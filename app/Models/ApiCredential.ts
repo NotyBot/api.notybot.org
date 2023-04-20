@@ -7,13 +7,13 @@ export default class ApiCredential extends BaseModel {
   public id: number
 
   @column()
-  public apiKey: string
+  public api_key: string
 
   @column()
-  public apiSecret: string
+  public api_secret: string
 
   @column()
-  public bearerToken: string
+  public bearer_token: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -23,7 +23,7 @@ export default class ApiCredential extends BaseModel {
 
   @beforeCreate()
   public static async generateApiKey(apiCredential: ApiCredential) {
-    apiCredential.apiKey = crypto.randomBytes(16).toString('hex')
-    apiCredential.apiSecret = crypto.randomBytes(32).toString('hex')
+    apiCredential.api_key = crypto.randomBytes(16).toString('hex')
+    apiCredential.api_secret = crypto.randomBytes(32).toString('hex')
   }
 }
