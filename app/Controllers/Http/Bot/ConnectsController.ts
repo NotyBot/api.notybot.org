@@ -10,11 +10,11 @@ export default class ConnectsController {
     const apiCredential = await ApiCredential.findBy('api_key', data.api_key)
 
     if (!apiCredential) {
-      return response.status(401).json({ message: 'Unauthorized' })
+      return response.status(401).json({ message: 'Api Key invalid' })
     }
 
     if (apiCredential.api_secret !== data.api_secret) {
-      return response.status(401).json({ message: 'Unauthorized' })
+      return response.status(401).json({ message: 'Api Secret invalid' })
     }
 
     apiCredential.bearer_token =
