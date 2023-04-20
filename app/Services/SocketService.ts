@@ -32,14 +32,11 @@ export default class SocketService {
         const payload = JSON.parse(data.toString().trim())
         switch (payload.code) {
           case 0:
-            console.log('Client authenticated')
             client.write(JSON.stringify(HelloPayload))
             break
           case 1:
-            console.log('Client heartbeat')
             clearTimeout(heartbeatTimer)
             heartbeatTimer = setTimeout(() => {
-              console.log('Client heartbeat timeout')
               client.end()
             }, this.HEARTBEAT_TIMEOUT)
             break
@@ -53,20 +50,17 @@ export default class SocketService {
       this.clients.delete(client.remoteAddress!)
     })
 
-    client.on('error', (error) => {
-      console.log(`Client error: ${error}`)
-
+    client.on('error', (error: Error) => {
+      Logger.error(error.message)
       this.clients.delete(client.remoteAddress!)
     })
 
     client.on('end', () => {
-      console.log('Client disconnected')
       clearTimeout(heartbeatTimer)
       this.clients.delete(client.remoteAddress!)
     })
 
     heartbeatTimer = setTimeout(() => {
-      console.log('Client heartbeat timeout')
       client.end()
     }, this.HEARTBEAT_TIMEOUT)
   }
