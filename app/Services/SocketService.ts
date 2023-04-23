@@ -1,6 +1,7 @@
 import { Socket, Server } from 'node:net'
 import Logger from '@ioc:Adonis/Core/Logger'
 import { HelloPayload } from '../../types'
+import Env from '@ioc:Adonis/Core/Env'
 
 interface ClientHeartbeat {
   client: Socket
@@ -14,8 +15,8 @@ export default class SocketService {
   constructor() {
     this.server = new Server()
     this.server.on('connection', this.handleConnection.bind(this))
-    this.server.listen(3000, () => {
-      Logger.info('Server listening on port 3000')
+    this.server.listen(Env.get('SOCKET_PORT'), () => {
+      Logger.info(`Server listening on port ${Env.get('SOCKET_PORT')}`)
     })
   }
 
