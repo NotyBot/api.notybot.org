@@ -1,7 +1,7 @@
 import { Socket, Server } from 'node:net'
 import Logger from '@ioc:Adonis/Core/Logger'
-import { HelloPayload } from '../../types'
 import Env from '@ioc:Adonis/Core/Env'
+import { sendHello } from '../../utils/socket_utils'
 
 interface ClientHeartbeat {
   client: Socket
@@ -28,12 +28,12 @@ export default class SocketService {
       client,
     })
 
-    client.on('data', (data) => {
+    client.on('data', async (data) => {
       try {
         const payload = JSON.parse(data.toString().trim())
         switch (payload.code) {
           case 0:
-            client.write(JSON.stringify(HelloPayload))
+            await sendHello(payload, client)
             break
           case 1:
             clearTimeout(heartbeatTimer)

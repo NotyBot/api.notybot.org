@@ -13,10 +13,7 @@ Route.group(() => {
   }).prefix('oauth')
 
   //GESTION DU BOT
-  Route.group(() => {
-    Route.post('/', 'Bot/ConnectsController.store')
-    Route.put('/', 'Bot/ConnectsController.update')
-  }).prefix('/bot')
+  Route.group(() => {}).prefix('/bot')
 
   //NEWSLETTER
   Route.group(() => {
