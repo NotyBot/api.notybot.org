@@ -3,6 +3,7 @@ import ApiCredential from 'App/Models/ApiCredential'
 
 export default class AuthBotMiddleware {
   public async handle({ request, response }: HttpContextContract, next: () => Promise<void>) {
+    console.log(request.header('Authorization'))
     const token = request.header('Authorization')!.split(' ')[1]
     const botCredential = await ApiCredential.findBy('bearer_token', token)
 

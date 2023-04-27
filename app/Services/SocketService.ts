@@ -43,6 +43,7 @@ export default class SocketService {
             break
         }
       } catch (error) {
+        console.log('Des fois la dn est down')
         console.log(`Error parsing JSON: ${error}`)
       }
     })

@@ -13,7 +13,9 @@ Route.group(() => {
   }).prefix('oauth')
 
   //GESTION DU BOT
-  Route.group(() => {}).prefix('/bot')
+  Route.group(() => {
+    Route.get('/', 'Bot/WelcomesController.index')
+  }).prefix('/bot').middleware('auth_bot')
 
   //NEWSLETTER
   Route.group(() => {
