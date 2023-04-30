@@ -1224,6 +1224,11 @@ adonis-preset-ts@^2.1.0:
   resolved "https://registry.yarnpkg.com/adonis-preset-ts/-/adonis-preset-ts-2.1.0.tgz#3fccdee1c82c574114dc089d8c76dddf5a223054"
   integrity sha512-cQH/NP250gOF9k3TTDhVsTOPSAvyH4MhKVZ4ryYiihA+vnP27sut1gVIrRas3Evl5d2wEgWVGI5DgdP/ZFSk0w==
 
+adonis-sail@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/adonis-sail/-/adonis-sail-0.0.7.tgz#782d4eaa74f67a51c36cd9aad07f151ea533697c"
+  integrity sha512-M3T5fVo3v0WijFVVkEUkMhPe3TXn/CQFG34ZO59zsMCof9daXiKKBCbmIcxfpgQ27MxpkU2y8yYagh+wtz9hXA==
+
 adonis5-sentry@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/adonis5-sentry/-/adonis5-sentry-3.1.0.tgz#bfdbac5a38b66ca47d7ee9ac4525551bd600b019"
