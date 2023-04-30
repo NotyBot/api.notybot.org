@@ -16,7 +16,6 @@ services:
       - 'sailredis:/data'
     networks:
       - sail
-
   redis-queue:
     image: redis:alpine
     hostname: redis-queue
@@ -27,7 +26,6 @@ services:
       - 'sailredisqueue:/data'
     networks:
       - sail
-
   pgsql:
     image: 'postgres:13'
     container_name: pgsql
@@ -46,7 +44,6 @@ services:
       test: ["CMD", "pg_isready", "-q", "-d", "${PG_DB_NAME:-default}", "-U", "${PG_USER}"]
       retries: 3
       timeout: 5s
-
   minio:
     image: 'minio/minio:latest'
     container_name: 'minio'
@@ -65,7 +62,6 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       retries: 3
       timeout: 5s
-
   mailhog:
     image: 'mailhog/mailhog:latest'
     container_name: 'mailhog'
