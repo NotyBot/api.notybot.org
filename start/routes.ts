@@ -15,7 +15,9 @@ Route.group(() => {
   //GESTION DU BOT
   Route.group(() => {
     Route.get('/', 'Bot/WelcomesController.index')
-  }).prefix('/bot').middleware('auth_bot')
+  })
+    .prefix('/bot')
+    .middleware('auth_bot')
 
   //NEWSLETTER
   Route.group(() => {
@@ -24,4 +26,5 @@ Route.group(() => {
   }).prefix('/newsletter')
 
   Route.post('/api-credentials', 'ApiCredentialsController.store')
+  Route.put('/api-credentials/:api_key', 'ApiCredentialsController.update')
 }).prefix('/v1')
