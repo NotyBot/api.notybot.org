@@ -35,7 +35,8 @@
       "@adonisjs/mail",
       "@adonisjs/view",
       "@adonisjs/redis",
-      "@setten/bull-queue"
+      "@setten/bull-queue",
+      "adonis5-sentry"
     ]
   }
 }
