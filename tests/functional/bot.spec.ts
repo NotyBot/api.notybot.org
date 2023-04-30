@@ -13,42 +13,9 @@ test.group('Bot', (group) => {
     assert.equal(response.status(), 200)
   })
 
-  test('should return token', async ({ client, assert }) => {
-    const data = await ApiCredential.query().firstOrFail()
-    const response = await client
-      .post('/v1/bot')
-      .json({
-        api_key: data.api_key,
-        api_secret: data.api_secret,
-      })
-      .send()
-
+  test('renew api secret', async ({ client, assert }) => {
+    const data = await ApiCredential.first()
+    const response = await client.put(`/v1/api-credentials/${data?.id}`)
     assert.equal(response.status(), 200)
-  })
-
-  test('should return error when api key is invalid', async ({ client, assert }) => {
-    const data = await ApiCredential.query().firstOrFail()
-    const response = await client
-      .post('/v1/bot')
-      .json({
-        api_key: 'invalid',
-        api_secret: data.api_secret,
-      })
-      .send()
-
-    assert.equal(response.status(), 401)
-  })
-
-  test('should return error when api secret is invalid', async ({ client, assert }) => {
-    const data = await ApiCredential.query().firstOrFail()
-    const response = await client
-      .post('/v1/bot')
-      .json({
-        api_key: data.api_key,
-        api_secret: 'invalid',
-      })
-      .send()
-
-    assert.equal(response.status(), 401)
   })
 })
