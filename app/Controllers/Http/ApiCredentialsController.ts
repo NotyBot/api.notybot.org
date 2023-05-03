@@ -11,7 +11,7 @@ export default class ApiCredentialsController {
     const apiCredential = await ApiCredential.findBy('api_key', params.api_key)
 
     if (!apiCredential) {
-      return response.status(401).json({ message: 'Api Key invalid' })
+      return response.unauthorized('Invalid API Key')
     }
 
     const apiSecret = await apiCredential
