@@ -14,8 +14,8 @@ test.group('Bot', (group) => {
   })
 
   test('renew api secret', async ({ client, assert }) => {
-    const data = await ApiCredential.first()
-    const response = await client.put(`/v1/api-credentials/${data?.id}`)
+    const apiCredential = await ApiCredential.first()
+    const response = await client.put(`/v1/api-credentials/${apiCredential!.api_key}`)
     assert.equal(response.status(), 200)
   })
 })
