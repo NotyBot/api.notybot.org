@@ -1,16 +1,21 @@
 import Route from '@ioc:Adonis/Core/Route'
+import * as process from 'process'
 
-Route.get('/', async () => {
-  return { hello: 'world' }
-}).middleware('auth_bot')
+Route.get('/', () => ({ uptime: process.uptime() }))
 
 Route.group(() => {
   //AUTHENTICATION
-  Route.group(() => {
-    Route.get('/:provider', 'Auth/SocialAuthsController.redirect')
-    Route.get('/:provider/callback', 'Auth/SocialAuthsController.callback')
-    Route.get('/me', 'UsersController.me').middleware('auth:api')
-  }).prefix('oauth')
+  Route.get('/me', 'Auth/AuthController.me')
+  Route.get('/auth/check', 'Auth/AuthController.check')
+  Route.post('/auth/logout', 'Auth/AuthController.logout')
+  Route.get('/oauth/:provider/redirect', 'Auth/AuthController.redirect').where(
+    'provider',
+    /discord/
+  )
+  Route.get('/oauth/:provider/callback', 'Auth/AuthController.callback').where(
+    'provider',
+    /discord/
+  )
 
   //GESTION DU BOT
   Route.group(() => {

@@ -2,7 +2,20 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import SocialAuth from 'App/Services/SocialAuth'
 
-export default class SocialAuthsController {
+export default class AuthController {
+  public me({ auth, response }: HttpContextContract) {
+    if (!auth.user) {
+      return response.unauthorized()
+    }
+
+    return auth.user
+  }
+
+  public async check({ auth, response }: HttpContextContract) {
+    return response.ok({
+      authenticated: auth.isAuthenticated,
+    })
+  }
   public async redirect({ ally, auth, params, response }: HttpContextContract) {
     if (await auth.check()) {
       return response.notAcceptable()

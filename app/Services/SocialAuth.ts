@@ -27,6 +27,7 @@ export default class SocialAuth implements Promise<void> {
       },
       {
         id: this.socialUser.id,
+        email: this.socialUser.email!,
         username:
           this.socialUser.nickName ?? this.socialUser.name ?? this.socialUser.email!.split('@')[0],
         provider: this.provider,
