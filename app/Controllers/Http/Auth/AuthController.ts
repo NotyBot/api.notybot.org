@@ -7,7 +7,6 @@ export default class AuthController {
     if (!auth.user) {
       return response.unauthorized()
     }
-
     return auth.user
   }
 
@@ -28,8 +27,8 @@ export default class AuthController {
 
     // @ts-ignore
     await new SocialAuth(socialUser, params.provider).onFindOrCreate(async (user: User) => {
-      const oat = await auth.use('api').login(user)
-      return response.redirect().toPath(`http://localhost:4200/authentication?token=${oat.token}`)
+      await auth.use('web').login(user)
+      return response.redirect().toPath(`http://localhost:5174/`)
     })
   }
 
