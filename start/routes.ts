@@ -5,7 +5,7 @@ Route.get('/', () => ({ uptime: process.uptime() }))
 
 Route.group(() => {
   //AUTHENTICATION
-  Route.get('/me', 'Auth/AuthController.me')
+  Route.get('/me', 'Auth/AuthController.me').middleware('auth')
   Route.get('/auth/check', 'Auth/AuthController.check')
   Route.post('/auth/logout', 'Auth/AuthController.logout')
   Route.get('/oauth/:provider/redirect', 'Auth/AuthController.redirect').where(
