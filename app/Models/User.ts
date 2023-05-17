@@ -28,4 +28,7 @@ export default class User extends BaseModel {
 
   @column()
   public hasEmailConfirmed: boolean
+
+  @column()
+  public avatarUrl: string
 }
