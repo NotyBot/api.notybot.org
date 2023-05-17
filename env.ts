@@ -40,5 +40,6 @@ export default Env.rules({
   QUEUE_REDIS_HOST: Env.schema.string({ format: 'host' }),
   QUEUE_REDIS_PORT: Env.schema.number(),
   QUEUE_REDIS_PASSWORD: Env.schema.string.optional(),
-  SOCKET_PORT: Env.schema.number()
+  SOCKET_PORT: Env.schema.number(),
+  SESSION_DRIVER: Env.schema.string(),
 })
