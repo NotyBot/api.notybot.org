@@ -28,7 +28,7 @@ export default class AuthController {
     // @ts-ignore
     await new SocialAuth(socialUser, params.provider).onFindOrCreate(async (user: User) => {
       await auth.use('web').login(user)
-      return response.redirect().toPath(`http://localhost:5174/`)
+      return response.redirect().toPath(`http://localhost:5173/`)
     })
   }
 

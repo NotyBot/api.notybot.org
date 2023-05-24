@@ -1,9 +1,8 @@
 import Route from '@ioc:Adonis/Core/Route'
 import * as process from 'process'
 
-Route.get('/', () => ({ uptime: process.uptime() }))
-
 Route.group(() => {
+  Route.get('/', () => ({ uptime: process.uptime() }))
   //AUTHENTICATION
   Route.get('/me', 'Auth/AuthController.me').middleware('auth')
   Route.get('/auth/check', 'Auth/AuthController.check')

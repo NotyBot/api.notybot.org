@@ -1,3 +1,8 @@
-// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class GuildsController {}
+export default class GuildsController {
+  public async store({ request }: HttpContextContract) {
+    const data = await request.body()
+    console.log(data)
+  }
+}
